@@ -45,6 +45,10 @@ android {
         }
     }
 
+    signingConfigs {
+        config
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -52,6 +56,18 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+}
+
+// set the keystore if we set the path
+if (KEYSTORE != "") {
+    // initialize the signing
+    android.signingConfigs.config.storeFile = file('../keystore/' + KEYSTORE)
+    android.signingConfigs.config.storePassword = STORE_PASSWORD
+    android.signingConfigs.config.keyAlias = KEY_ALIAS
+    android.signingConfigs.config.keyPassword = KEY_PASSWORD
+    // set this signing for both build types
+    android.buildTypes.release.signingConfig = android.signingConfigs.config
+    android.buildTypes.debug.signingConfig = android.signingConfigs.config
 }
 
 dependencies {
@@ -66,5 +82,4 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
 }

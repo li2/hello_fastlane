@@ -32,7 +32,7 @@ platform :android do
       properties: {
         "versionCode" => 1,
         "versionName" => "1.0.0",
-        "android.injected.signing.store.file" => "/Users/weiyi.li/Develop/hello_fastlane/hello_fastlane_keystore.jks",
+        "android.injected.signing.store.file" => "/Users/weiyi.li/Develop/hello_fastlane/keystore/hello_fastlane_release.keystore",
         "android.injected.signing.store.password" => ENV["HELLO_FASTLANE_STORE_PASSWORD"],
         "android.injected.signing.key.alias" => ENV["HELLO_FASTLANE_KEY_ALIAS"],
         "android.injected.signing.key.password" => ENV["HELLO_FASTLANE_KEY_PASSWORD"],
