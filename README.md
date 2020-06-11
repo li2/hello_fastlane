@@ -47,6 +47,40 @@ org.junit.ComparisonFailure: expected:<...droid.hello_fastlane[]> but was:<...dr
 ```
 
 
+## Jenkins
+
+### Install Jenkins
+```shell
+$ brew update && brew install jenkins
+$ jenkins
+    http://localhost:8080/
+```
+
+### Config Jenkins for Android
+
+Set environment variables of Android and Java: `Dashboard -> Manage Jenkins -> Configure System -> Global properties -> Environment variables`
+
+```xml
+ANDROID_HOME=/Users/your_name/Library/Android/sdk
+JAVA_HOME=/usr/libexec/java_home
+if encounter error: JAVA_HOME is set to an invalid directory: /usr/libexec/java_home
+then try this:
+JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-13.0.2.jdk/Contents/Home
+```
+
+Create a new job to build Android project: `Dashboard -> New Item`, enter project name and select Freestyle Project style. click on OK button to continue. In the next page, click on `Source Code Management` tab to set up code repository.
+
+Then setup Android build variants in Jenkins. see commit [#1336a7bb](https://github.com/li2/hello_fastlane/commit/1336a7bb82de0f816e06570f2db333e0ce6efc8a) for detail
+
+<img width="900" alt="" src="screenshots/jenkins-build-with-parameters.png">
+
+
+Refer
+
+- [Fastlane Jenkins Integration](https://docs.fastlane.tools/best-practices/continuous-integration/jenkins/)
+- [Build by types and sign Android app from Jenkins](https://www.sromku.com/blog/build-android-jenkins-types)
+
+
 
 ## Beta Release to Firebase App Distribution
 
