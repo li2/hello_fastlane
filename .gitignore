@@ -1,6 +1,8 @@
 # API
 google-services.json
 output.json
+artifacts
+report
 
 # Built application files
 *.apk

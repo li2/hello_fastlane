@@ -74,11 +74,24 @@ Then setup Android build variants in Jenkins. see commit [#1336a7bb](https://git
 
 <img width="900" alt="" src="screenshots/jenkins-build-with-parameters.png">
 
+### Run Android unit tests and generate reports on jenkins build page
+
+Install `JUnit Plugin` then configure Job to `Add post-build action ▼`:
+
+| Test report XMLs report            | test-results/*.xml | Available on Jenkins build page if failed.                   |
+| ---------------------------------- | ------------------ | ------------------------------------------------------------ |
+| Health report amplification factor | 1.0                | 1% failing tests scores as 99% health. 5% failing tests scores as 95% health |
+| Allow empty results                | True               | There is no test reports if all state (test, build, sign, etc) succeed, check this option can avoid Jenkins shows failure status. |
+
+Then update `build.sh` to add test task and report test results task. Then you can check the test results for failure details which is much more friendly than `Console Output`.
+
+<img width="900" alt="" src="screenshots/jenkins-test-report.jpg">
 
 Refer
 
 - [Fastlane Jenkins Integration](https://docs.fastlane.tools/best-practices/continuous-integration/jenkins/)
 - [Build by types and sign Android app from Jenkins](https://www.sromku.com/blog/build-android-jenkins-types)
+- [Run lint and unit tests of Android builds from Jenkins](https://www.sromku.com/blog/build-android-jenkins-tests-lint)
 
 
 
