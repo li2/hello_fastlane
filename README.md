@@ -74,6 +74,14 @@ Then setup Android build variants in Jenkins. see commit [#1336a7bb](https://git
 
 <img width="900" alt="" src="screenshots/jenkins-build-with-parameters.png">
 
+### APK renaming
+
+```shell
+${applicationId}-v${versionName}(${versionCode}-${productFlavor}-${buildType}-${gitsha})
+```
+
+<img width="900" alt="" src="screenshots/apk-renaming.png">
+
 ### Run Android unit tests and generate reports on jenkins build page
 
 Install `JUnit Plugin` then configure Job to `Add post-build action ▼`:

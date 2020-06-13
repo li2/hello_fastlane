@@ -16,7 +16,7 @@ setProperty() {
 	sed -i.bak -e "s/\($1 *= *\).*/\1$2/" ${propertiesFile}
 }
 
-function reportTestResults {
+function publishJUnitTestResults {
   rm -r report/
   mkdir report
   mkdir report/test-results
@@ -34,7 +34,7 @@ function reportTestResults {
   done
 }
 
-function runUnitTest {
+function runJUnitTest {
   # run junit test
   ./gradlew "test${productFlavor}${buildType}" --stacktrace
 
@@ -43,7 +43,7 @@ function runUnitTest {
   if [ ${PIPESTATUS[0]} -ne "0" ]
   then
       echo "test failed with Error: ${PIPESTATUS[0]}"
-      reportTestResults
+      publishJUnitTestResults
       exit 1
   else
       echo "test successfully!"
@@ -75,23 +75,35 @@ function build {
   ./gradlew "assemble${productFlavor}${buildType}" --stacktrace
 }
 
-function copyApkToArtifacts {
-  apkFileName="app-$productFlavor-$buildType.apk"
+function archiveArtifacts {
   rm -r artifacts/
   mkdir artifacts
 
-  # copy apk to artifacts
-  if [ ! -e "app/build/outputs/apk/$productFlavor/$buildType/$apkFileName" ]; then
-      echo "ERROR: File not exists: (app/build/outputs/apk/$productFlavor/$buildType/$apkFileName)"
+  apkFilePath="app/build/outputs/apk/$productFlavor/$buildType/*-$productFlavor-$buildType.apk"
+
+  # Check if a file exists with wildcard in shell script
+  # https://stackoverflow.com/a/6364244/2722270
+  if ls $apkFilePath 1> /dev/null 2>&1; then
+    # copy apk to artifacts
+    cp $apkFilePath artifacts/
+    # rename: append git sha
+    # ${applicationId}-v${versionName}(${versionCode}-${productFlavor}-${buildType}-${gitsha})
+    GIT_SHA=$(git rev-parse --short HEAD)
+    for apk in artifacts/*.apk
+    do
+      apkFileName=$(echo "${apk%.*}")
+      mv $apk "$apkFileName-$GIT_SHA.apk"
+    done
+  else
+      echo "ERROR: Apk not exists: ($apkFilePath)"
       exit 1
   fi
-  cp app/build/outputs/apk/$productFlavor/$buildType/$apkFileName artifacts/
 }
 
 # -----------------------------------------------------------------
 # -------------------------- TESTS & LINT--------------------------
 # -----------------------------------------------------------------
-runUnitTest
+runJUnitTest
 
 # -----------------------------------------------------------------
 # ------------------------------ BUILD ----------------------------
@@ -101,8 +113,8 @@ build
 # -----------------------------------------------------------------
 # -------------------------- POST BUILD ---------------------------
 # -----------------------------------------------------------------
-copyApkToArtifacts
-reportTestResults
+archiveArtifacts
+publishJUnitTestResults
 
 cat << "EOF"
 EOF
