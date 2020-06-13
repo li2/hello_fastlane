@@ -164,3 +164,20 @@ which will generate APK, sign it, upload to Firebase App Distribution:
 
 [20:09:18]: fastlane.tools finished successfully 🎉
 ```
+
+
+## Deploy to Google Play using fastlane
+
+Preparation
+
+- Creata an Application and upload a bundle build manually to Play Console to avoid error _"No application was found for the given package name"_ in the following supply setup steps.
+- [Setting up supply](https://docs.fastlane.tools/getting-started/android/setup/#setting-up-supply) 
+    - create a Google Service Account in Google Cloud Console;
+    - grant application access for the newly added service account in Play Console;
+    - download service account credentials json file from Google Cloud Console;
+    - test the connection to Play Console with the json file;
+    - init `supply` and download your App metadata from Play;
+
+TODO (stuck on this issue 2020-06-13 22:53:42)
+
+> Google Api Error: Invalid request - Access Not Configured. Google Play Developer API has not been used in project  xxx before or it is disabled.  [fastlane issue #16593](https://github.com/fastlane/fastlane/issues/16593)

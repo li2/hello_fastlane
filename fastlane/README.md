@@ -21,16 +21,16 @@ or alternatively using `brew cask install fastlane`
 fastlane android test
 ```
 Runs all the tests
-### android uat
+### android beta
 ```
-fastlane android uat
+fastlane android beta
 ```
 Submit a new Beta Build to Firebase App Distribution
-### android deploy
+### android playstore
 ```
-fastlane android deploy
+fastlane android playstore
 ```
-Deploy a new version to the Google Play
+Deploy a new bundle version to the Google Play Store
 
 ----
 
