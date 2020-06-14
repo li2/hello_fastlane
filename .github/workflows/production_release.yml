@@ -34,7 +34,7 @@ jobs:
   buildAppBundle:
     name: Generate artifact
     needs: unitTest
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
 
@@ -45,6 +45,7 @@ jobs:
 
       # use tags for the versions of our releases
       # https://gist.github.com/djyugg/efd3ad2c3c134c8e2d90
+      # sed: can't read s/versionCode *[0-9]*/versionCode 4/: No such file or directory
       - name: Update release version
         run: |
           APP_BUILD_GRADLE=app/build.gradle
@@ -87,11 +88,15 @@ jobs:
           name: app-production-release
 
       - name: Deploy to Play Store
+        # https://github.com/marketplace/actions/upload-android-release-to-play-store
         uses: r0adkll/upload-google-play@v1.0.4
         with:
           serviceAccountJsonPlainText: ${{ secrets.RELEASE_MANAGER_KEY }}
           packageName: me.li2.android.hello_fastlane
-          releaseFile: app-production-release/app-production-release-unsigned-signed.apk
+          releaseFile: app-production-release/app-production-release.aab
           track: production
-          userFraction: 1
+          # A provided userFraction must be between 0.0 and 1.0, exclusive-exclusive
+          userFraction: 0.5
+          # Unable to find 'whatsnew' directory @ whatsnew
           whatsNewDirectory: whatsnew
+          #mappingFile: /app/build/outputs/mapping/productionRelease/mapping.txt
