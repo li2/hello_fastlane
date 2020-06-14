@@ -62,12 +62,12 @@ jobs:
           path: ${{ env.SIGNED_RELEASE_FILE }}
 
   uatRelease:
-    name: deploy apk to testers
+    name: Deploy apk to testers
     needs: apk
     runs-on: ubuntu-latest
     steps:
-      # https://github.com/marketplace/actions/firebase-app-distribution
       - name: Deploy to Firebase App Distribution
+        # https://github.com/marketplace/actions/firebase-app-distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
