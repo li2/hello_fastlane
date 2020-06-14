@@ -6,8 +6,7 @@
 #
 name: Android UAT CI
 
-# on what event workflow will be triggered:
-# pushing commits or pull request to master
+# workflow will be triggered on pushing commits or pull request to master
 on:
   pull_request:
     branches:
@@ -16,34 +15,27 @@ on:
     branches:
       - 'master'
 
-# Each workflow can have multiple jobs which by default are running in parallel, but
-# it could be changed to have specific sequence of them.
 jobs:
   unitTest:
     name: Run Unit Tests
-    # instance of a virtual machine jobs runs on.
     runs-on: ubuntu-latest
     steps:
-      # allow the workflow to access the content of the repository
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
-      # set up a JDK version
       - name: set up JDK 1.8
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
 
-      # runs unit tests
       - name: Unit tests
         run: bash ./gradlew test --stacktrace
 
   apk:
     name: Generate APK
-    # only runs build job when unit test pass
     needs: unitTest
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - name: set up JDK 1.8
         uses: actions/setup-java@v1
