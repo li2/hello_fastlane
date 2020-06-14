@@ -188,6 +188,39 @@ TODO (stuck on this issue 2020-06-13 22:53:42)
 
 > GitHub Actions introduces workflows that can have multiple jobs and such workflows can be triggered by an event (commit, pull request, etc.) or can be scheduled.
 
+Added 3 workflows:
+
+### Development workflow
+
+workflow will be triggered on every new code commits on feature branches.
+jobs include:
+
+- junit tests.
+- todo: code linters (which check style formatting), security checks, code coverage, instrumented unit tests, etc.
+
+### UAT release workflow
+
+workflow will be triggered on pushing commits or pull request to master (main trunk),
+jobs include:
+
+- junit test
+- build and sign APK, upload APK to GitHub artifacts, deploy to Firebase App Distribution.
+
+### Production release workflow
+
+workflow will be triggered on Github tags created,
+jobs include:
+
+- junit test
+- automatically bump version code (simply +1) and version name (from tag).
+- build and sign App bundle file .aab,
+- upload the signed artifact to GitHub artifacts,
+- deploy the signed artifact to PlayStore.
+
+<img width="900" alt="" src="screenshots/github-actions-pr.jpg">
+
+<img width="600" alt="" src="screenshots/github-actions-beta-release.jpg">
+
 Refer
 
 - [Using GitHub Actions for Android Continuous Integration and Delivery](https://overflow.buffer.com/2020/05/07/using-github-actions-for-android-continuous-integration-and-delivery/)
