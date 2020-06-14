@@ -1,6 +1,6 @@
+![Android CI](https://github.com/li2/hello_fastlane/workflows/Android%20CI/badge.svg)
+
 # Hello Fastlane
-
-
 
 ## Running Android tests using fastlane
 
@@ -72,7 +72,7 @@ Create a new job to build Android project: `Dashboard -> New Item`, enter projec
 
 Then setup Android build variants in Jenkins. see commit [#1336a7bb](https://github.com/li2/hello_fastlane/commit/1336a7bb82de0f816e06570f2db333e0ce6efc8a) for detail
 
-<img width="900" alt="" src="screenshots/jenkins-build-with-parameters.png">
+<img width="600" alt="" src="screenshots/jenkins-build-with-parameters.png">
 
 ### APK renaming
 
@@ -80,7 +80,7 @@ Then setup Android build variants in Jenkins. see commit [#1336a7bb](https://git
 ${applicationId}-v${versionName}(${versionCode}-${productFlavor}-${buildType}-${gitsha})
 ```
 
-<img width="900" alt="" src="screenshots/apk-renaming.png">
+<img width="600" alt="" src="screenshots/apk-renaming.png">
 
 ### Run Android unit tests and generate reports on jenkins build page
 
