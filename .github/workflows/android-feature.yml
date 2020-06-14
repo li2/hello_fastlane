@@ -2,7 +2,7 @@
 name: Android Feature Branch CI
 
 # on what event workflow will be triggered:
-# pushing commits to a branch other than master (main trunk) or which starts with release in its name
+# pushing commits to a branch other than master (main trunk) or branch starts with release in its name
 on:
   push:
     branches:

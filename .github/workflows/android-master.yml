@@ -73,3 +73,4 @@ jobs:
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: hello-fastlane-uat-testers
           file: ${{ env.SIGNED_RELEASE_FILE }}
+          releaseNotesFile: releaseNotes.txt
