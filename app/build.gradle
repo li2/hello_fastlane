@@ -59,18 +59,6 @@ android {
     }
 }
 
-// set the keystore if we set the path
-if (KEYSTORE != "") {
-    // initialize the signing
-    android.signingConfigs.config.storeFile = file('../keystore/' + KEYSTORE)
-    android.signingConfigs.config.storePassword = STORE_PASSWORD
-    android.signingConfigs.config.keyAlias = KEY_ALIAS
-    android.signingConfigs.config.keyPassword = KEY_PASSWORD
-    // set this signing for both build types
-    android.buildTypes.release.signingConfig = android.signingConfigs.config
-    android.buildTypes.debug.signingConfig = android.signingConfigs.config
-}
-
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
