@@ -181,3 +181,13 @@ Preparation
 TODO (stuck on this issue 2020-06-13 22:53:42)
 
 > Google Api Error: Invalid request - Access Not Configured. Google Play Developer API has not been used in project  xxx before or it is disabled.  [fastlane issue #16593](https://github.com/fastlane/fastlane/issues/16593)
+
+
+
+## GitHub Actions
+
+> GitHub Actions introduces workflows that can have multiple jobs and such workflows can be triggered by an event (commit, pull request, etc.) or can be scheduled.
+
+Refer
+
+- [GitHub Actions for Android: First Approach](https://medium.com/@wkrzywiec/github-actions-for-android-first-approach-f616c24aa0f9)
