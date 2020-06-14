@@ -1,12 +1,16 @@
 # Production release workflow
 #
-# checks for every commit and pull requests on the master branch (main trunk). include:
+# workflow will be triggered on Github tags created,
+# jobs include:
 # - junit test
-# - build and sign APK, upload APK to GitHub artifacts, deploy to Firebase App Distribution.
+# - automatically bump version code (simply +1) and version name (from tag).
+# - build and sign App bundle file .aab,
+# - upload the signed artifact to GitHub artifacts,
+# - deploy the signed artifact to PlayStore.
 #
 name: Production Release CI
 
-# workflow will be triggered on tags created
+#
 on:
   push:
     tags:
@@ -27,8 +31,8 @@ jobs:
       - name: Unit tests
         run: bash ./gradlew test --stacktrace
 
-  apk:
-    name: Generate APK
+  buildAppBundle:
+    name: Generate artifact
     needs: unitTest
     runs-on: ubuntu-latest
     steps:
@@ -55,7 +59,7 @@ jobs:
       - name: Build App bundle (.aab)
         run: ./gradlew bundleProductionRelease --stacktrace
 
-      - name: Sign APK
+      - name: Sign aab
         # https://github.com/marketplace/actions/sign-android-release
         uses: r0adkll/sign-android-release@v1
         with:
@@ -68,20 +72,26 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v1
         with:
-          name: app
+          name: app-production-release
           path: ${{ env.SIGNED_RELEASE_FILE }}
 
   productionRelease:
-    name: deploy aab to Play Store
-    needs: apk
+    name: deploy the signed artifact to Play Store
+    needs: buildAppBundle
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+      - name: Download artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: app-production-release
+
       - name: Deploy to Play Store
         uses: r0adkll/upload-google-play@v1.0.4
         with:
           serviceAccountJsonPlainText: ${{ secrets.RELEASE_MANAGER_KEY }}
           packageName: me.li2.android.hello_fastlane
-          releaseFile: ${{ env.SIGNED_RELEASE_FILE }}
+          releaseFile: app-production-release/app-production-release-unsigned-signed.apk
           track: production
           userFraction: 1
           whatsNewDirectory: whatsnew
