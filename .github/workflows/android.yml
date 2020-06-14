@@ -5,10 +5,10 @@ name: Android Feature Branch CI
 on:
   push:
     branches:
-      - *
+      - '*'
   pull_request:
     branches:
-      -master
+      - master
 
 # Each workflow can have multiple jobs which by default are running in parallel, but
 # it could be changed to have specific sequence of them.
