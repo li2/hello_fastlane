@@ -9,11 +9,10 @@ android {
         applicationId "me.li2.android.hello_fastlane"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.0.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        setProperty("archivesBaseName", "${applicationId}-v${versionName}(${versionCode})")
     }
 
     buildTypes {
@@ -57,18 +56,6 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-}
-
-// set the keystore if we set the path
-if (KEYSTORE != "") {
-    // initialize the signing
-    android.signingConfigs.config.storeFile = file('../keystore/' + KEYSTORE)
-    android.signingConfigs.config.storePassword = STORE_PASSWORD
-    android.signingConfigs.config.keyAlias = KEY_ALIAS
-    android.signingConfigs.config.keyPassword = KEY_PASSWORD
-    // set this signing for both build types
-    android.buildTypes.release.signingConfig = android.signingConfigs.config
-    android.buildTypes.debug.signingConfig = android.signingConfigs.config
 }
 
 dependencies {
