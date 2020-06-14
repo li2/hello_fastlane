@@ -1,8 +1,13 @@
-# Name of the workflow
-name: Android Master & PR CI
+# UAT workflow
+#
+# checks for every commit and pull requests on the master branch (main trunk). include:
+# - junit test
+# - build and sign APK, upload APK to GitHub artifacts, deploy to Firebase App Distribution.
+#
+name: Android UAT CI
 
 # on what event workflow will be triggered:
-# pushing commits or pull request to master (main trunk)
+# pushing commits or pull request to master
 on:
   pull_request:
     branches:

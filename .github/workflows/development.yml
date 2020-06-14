@@ -1,5 +1,11 @@
-# Name of the workflow
-name: Android Feature Branch CI
+# Development workflow
+#
+# checks for every new code commits on feature/ branches. include
+# - junit tests.
+#
+# will try code linters (which check style formatting), security checks, code coverage, instrumented unit tests, etc.
+#
+name: Android Development CI
 
 # on what event workflow will be triggered:
 # pushing commits to a branch other than master (main trunk) or branch starts with release in its name
