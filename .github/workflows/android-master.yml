@@ -1,5 +1,5 @@
 # Name of the workflow
-name: Android Master & Pull Request CI
+name: Android Master & PR CI
 
 # on what event workflow will be triggered:
 # pushing commits or pull request to master (main trunk)
@@ -64,12 +64,12 @@ jobs:
           name: app
           path: ${{ env.SIGNED_RELEASE_FILE }}
 
-      - name: Upload artifact to Firebase App Distribution
+      - name: Deploy to Firebase App Distribution
         # https://github.com/marketplace/actions/firebase-app-distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
           # $firebase login:ci to get token
           token: ${{secrets.FIREBASE_TOKEN}}
-          groups: testers
+          groups: hello-fastlane-uat-testers
           file: ${{ env.SIGNED_RELEASE_FILE }}
