@@ -52,7 +52,7 @@ jobs:
         # https://github.com/marketplace/actions/sign-android-release
         uses: r0adkll/sign-android-release@v1
         with:
-          releaseDirectory: app/build/outputs/apk/uatRelease
+          releaseDirectory: app/build/outputs/apk/uat/release
           signingKeyBase64: ${{ secrets.SIGNING_KEY_BASE64 }}
           alias: ${{ secrets.KEY_ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
@@ -62,4 +62,4 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: app
-          path: app/build/outputs/apk/uatRelease/*.apk
+          path: app/build/outputs/apk/uat/release/*.apk
