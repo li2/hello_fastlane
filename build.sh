@@ -79,7 +79,7 @@ function archiveArtifacts {
   rm -r artifacts/
   mkdir artifacts
 
-  apkFilePath="app/build/outputs/apk/$productFlavor/$buildType/*-$productFlavor-$buildType.apk"
+  apkFilePath="app/build/outputs/apk/$productFlavor/$buildType/*-$productFlavor-$buildType*.apk"
   mappingPath="app/build/outputs/mapping/$productFlavor$buildType/mapping.txt"
 
   # Check if a file exists with wildcard in shell script
