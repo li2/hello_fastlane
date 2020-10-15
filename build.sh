@@ -80,6 +80,7 @@ function archiveArtifacts {
   mkdir artifacts
 
   apkFilePath="app/build/outputs/apk/$productFlavor/$buildType/*-$productFlavor-$buildType.apk"
+  mappingPath="app/build/outputs/mapping/$productFlavor$buildType/mapping.txt"
 
   # Check if a file exists with wildcard in shell script
   # https://stackoverflow.com/a/6364244/2722270
@@ -96,6 +97,14 @@ function archiveArtifacts {
     done
   else
       echo "ERROR: Apk not exists: ($apkFilePath)"
+      exit 1
+  fi
+
+  if ls $mappingPath 1> /dev/null 2>&1; then
+    # copy apk to artifacts
+    cp $mappingPath artifacts/
+  else
+      echo "ERROR: mappping.txt not exists: ($mappingPath)"
       exit 1
   fi
 }
