@@ -15,6 +15,21 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        debug {
+            storeFile file("../keystores/hello_fastlane_debug.keystore")
+            keyAlias "debug"
+            storePassword "debug2"
+            keyPassword "debug2"
+        }
+        release {
+            storeFile file("../keystores/hello_fastlane_release.keystore")
+            keyAlias System.getenv("KEY_ALIAS")
+            storePassword System.getenv("STORE_PASSWORD")
+            keyPassword System.getenv("KEY_PASSWORD")
+        }
+    }
+
     buildTypes {
         debug {
             debuggable = true
@@ -43,21 +58,6 @@ android {
 
         production {
             dimension "environment"
-        }
-    }
-
-    signingConfigs {
-        debug {
-            storeFile file("../keystores/hello_fastlane_debug.keystore")
-            keyAlias "debug"
-            storePassword "debug2"
-            keyPassword "debug2"
-        }
-        release {
-            storeFile file("../keystores/hello_fastlane_release.keystore")
-            keyAlias System.getenv("KEY_ALIAS")
-            storePassword System.getenv("STORE_PASSWORD")
-            keyPassword System.getenv("KEY_PASSWORD")
         }
     }
 
