@@ -23,6 +23,7 @@ android {
         release {
             debuggable = false
             minifyEnabled true
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -46,7 +47,18 @@ android {
     }
 
     signingConfigs {
-        config
+        debug {
+            storeFile file("../keystores/hello_fastlane_debug.keystore")
+            keyAlias "debug"
+            storePassword "debug2"
+            keyPassword "debug2"
+        }
+        release {
+            storeFile file("../keystores/hello_fastlane_release.keystore")
+            keyAlias System.getenv("KEY_ALIAS")
+            storePassword System.getenv("STORE_PASSWORD")
+            keyPassword System.getenv("KEY_PASSWORD")
+        }
     }
 
     compileOptions {
